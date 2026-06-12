@@ -1,0 +1,2 @@
+SMCL-DTA model loaded successfully.
+Number of parameters: <model_parameter_count>

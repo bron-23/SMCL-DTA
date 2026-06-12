@@ -1,0 +1,37 @@
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.ipynb_checkpoints/
+
+# Large model/checkpoint/data files
+*.pt
+*.pth
+*.pkl
+*.npy
+*.npz
+
+# Checkpoints and large outputs
+checkpoints/
+runs/
+logs/
+
+# Raw/processed datasets
+data/
+raw/
+processed/
+pdbbind/
+surface_cache/
+protein_surface_cache/
+ligand_surface_cache/
+
+# Dataset data folders
+splits/classification/data/
+splits/regression/data/
+splits/mmatt_independent/data/
+
+# IDE/system files
+.DS_Store
+.vscode/
+.idea/

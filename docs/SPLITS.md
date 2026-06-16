@@ -1,33 +1,64 @@
+# Dataset Split Protocols
 
----
+This document describes the split files released with SMCL-DTA and how they are organized in the repository.
 
-### `docs/SPLITS.md`
+## Released Split Directories
 
-```markdown
-# Scaffold- and Cluster-Based Cold-Start Splits
+| Directory | Dataset / benchmark | Description |
+| --- | --- | --- |
+| `splits/kiba/` | KIBA | Standard train/test split and cold-start split files. |
+| `splits/davis/` | Davis | Standard train/test split and cold-start split files. |
+| `splits/pdbbind_gign/` | PDBbind/GIGN | Official GIGN-aligned PDBbind train/validation/test splits. |
 
-This document describes the data split protocols used in SMCL-DTA.
+## KIBA and Davis Splits
 
-## Ligand Scaffold Split
-
-For ligand cold-start evaluation, compounds are split according to Bemis–Murcko scaffolds. Compounds sharing the same scaffold are assigned to the same subset to avoid scaffold leakage between training and testing.
-
-This setting evaluates whether the model can generalize to compounds with unseen chemical scaffolds.
-
-## Protein Cluster Split
-
-For target cold-start evaluation, target proteins are grouped into clusters based on protein representations. Protein representations are obtained using ProtT5 embeddings, followed by dimensionality reduction and unsupervised clustering.
-
-Entire protein clusters are held out during testing. This is stricter than holding out individual proteins because it reduces the chance that highly similar proteins appear in both training and testing.
-
-## Pair-Level Cold-Start Split
-
-The pair-level cold-start setting evaluates the most challenging scenario, where both compounds and targets are outside the training distribution.
-
-## Released Split Files
-
-The exact split files used in the manuscript are provided under:
+KIBA and Davis use the same directory layout:
 
 ```text
-splits/classification/
-splits/regression/
+splits/<dataset>/
+|-- standard/
+|   |-- all.csv
+|   |-- train.csv
+|   `-- test.csv
+|-- cold_start/
+|   |-- train.csv
+|   |-- test1.csv
+|   |-- test2.csv
+|   |-- test3.csv
+|   |-- <dataset>_proteins.csv
+|   `-- legacy/
+|       |-- train.csv
+|       |-- test1.csv
+|       `-- test2.csv
+`-- README.md
+```
+
+`standard/` contains the regular train/test split. The main schema is:
+
+```text
+compound_iso_smiles,target_sequence,affinity
+```
+
+`cold_start/` contains the cold-start evaluation split files copied from the local dataset split folder. These files preserve the original exported columns and may contain leading index columns.
+
+`cold_start/legacy/` keeps the older cold-start split files to make previous experiments reproducible.
+
+## Split Sizes
+
+| Dataset | Standard all | Standard train | Standard test | Cold train | Cold test1 | Cold test2 | Cold test3 | Protein rows |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| KIBA | 118,254 | 98,545 | 19,709 | 94,157 | 7,431 | 15,451 | 1,215 | 229 |
+| Davis | 118,254 | 98,545 | 19,709 | 94,157 | 7,431 | 15,451 | 1,215 | 442 |
+
+Legacy cold-start files are also retained:
+
+| Dataset | Legacy train | Legacy test1 | Legacy test2 |
+| --- | ---: | ---: | ---: |
+| KIBA | 97,956 | 19,621 | 677 |
+| Davis | 97,956 | 19,621 | 677 |
+
+## Cold-Start Evaluation Notes
+
+The cold-start files support evaluation settings where part of the compound/target space is held out from training. Use the corresponding `cold_start/train.csv` and `cold_start/test*.csv` files when reproducing cold-start experiments.
+
+For PDBbind/GIGN split details, see `docs/PDBBIND_GIGN_BENCHMARK.md`.

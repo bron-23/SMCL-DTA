@@ -40,9 +40,13 @@ SMCL-DTA/
 |   |-- evaluate_gign_test2013_5seeds.py
 |   `-- ...
 |-- splits/
-|   |-- classification/
-|   |-- regression/
-|   |-- mmatt_independent/
+|   |-- README.md
+|   |-- kiba/
+|   |   |-- standard/
+|   |   `-- cold_start/
+|   |-- davis/
+|   |   |-- standard/
+|   |   `-- cold_start/
 |   `-- pdbbind_gign/
 |-- src/
 |   |-- model_0428_16_dual.py
@@ -62,7 +66,10 @@ SMCL-DTA/
 | File | Description |
 | --- | --- |
 | [`docs/SURFACE_FEATURES.md`](docs/SURFACE_FEATURES.md) | Surface-feature extraction for proteins and ligands, including MSMS/PyMesh processing, electrostatic features, hydrogen-bond features, and hydrophobicity. |
-| [`docs/SPLITS.md`](docs/SPLITS.md) | Scaffold-based ligand splits and protein-cluster-based cold-start splits. |
+| [`docs/SPLITS.md`](docs/SPLITS.md) | Released KIBA, Davis, and PDBbind/GIGN split organization. |
+| [`splits/README.md`](splits/README.md) | Dataset split file index. |
+| [`splits/kiba/README.md`](splits/kiba/README.md) | KIBA standard and cold-start split files. |
+| [`splits/davis/README.md`](splits/davis/README.md) | Davis standard and cold-start split files. |
 | [`docs/MMATT_INDEPENDENT_EVALUATION.md`](docs/MMATT_INDEPENDENT_EVALUATION.md) | Independent MMAtt-DTA kinase evaluation protocol. |
 | [`docs/PDBBIND_GIGN_BENCHMARK.md`](docs/PDBBIND_GIGN_BENCHMARK.md) | PDBbind/GIGN benchmark protocol and reported results. |
 | [`examples/minimal_example.py`](examples/minimal_example.py) | Minimal model-loading example with expected output. |
@@ -131,13 +138,24 @@ The `checkpoints/` directory is expected to contain the pretrained KIBA checkpoi
 
 ### Step 1: Prepare the Dataset
 
-Place the processed KIBA data under:
+The repository includes KIBA split CSV files under:
 
 ```text
-data/kiba/
+splits/kiba/
+|-- standard/
+|   |-- all.csv
+|   |-- train.csv
+|   `-- test.csv
+`-- cold_start/
+    |-- train.csv
+    |-- test1.csv
+    |-- test2.csv
+    `-- test3.csv
 ```
 
-The directory should contain the processed files required by the dataset loader.
+Use `splits/kiba/standard/train.csv` and `splits/kiba/standard/test.csv` for the standard KIBA reproduction workflow. Use the `cold_start/` files for cold-start evaluation.
+
+If a script expects processed data under `data/kiba/`, copy or link the required split files from `splits/kiba/` into the expected runtime data directory.
 
 ### Step 2: Run Standard Reproduction
 
@@ -170,6 +188,17 @@ A run is considered successfully reproduced when the metrics fall within the tol
 | Model ensemble | 0.1321 | 0.8891 | 0.7805 | Ensemble of four high-performing checkpoints. |
 | Prediction calibration | **0.1310** | **0.8886** | **0.8035** | Isotonic calibration. |
 | Advanced ensemble | 0.1303 | 0.8883 | 0.8053 | Stacking and multi-stage calibration. |
+
+## KIBA and Davis Split Files
+
+The repository now includes local split files for both KIBA and Davis under `splits/`.
+
+| Dataset | Standard all | Standard train | Standard test | Cold train | Cold test1 | Cold test2 | Cold test3 | Split README |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | --- |
+| KIBA | 118,254 | 98,545 | 19,709 | 94,157 | 7,431 | 15,451 | 1,215 | [`splits/kiba/README.md`](splits/kiba/README.md) |
+| Davis | 118,254 | 98,545 | 19,709 | 94,157 | 7,431 | 15,451 | 1,215 | [`splits/davis/README.md`](splits/davis/README.md) |
+
+Each dataset contains a `standard/` split for regular train/test evaluation and a `cold_start/` split for held-out cold-start evaluation. The `cold_start/legacy/` folders preserve older split files from the local source directory.
 
 ## Reproducibility Controls
 
@@ -328,7 +357,7 @@ results/pdbbind_gign/
 
 ## Data and Licensing Notes
 
-This repository does not redistribute third-party raw datasets that require separate access or licensing, including raw PDBbind structural data and MMAtt-DTA supplementary files. Please obtain those resources from their official sources and place them in the paths described above.
+This repository includes the KIBA and Davis split CSV files under `splits/kiba/` and `splits/davis/`. Third-party raw datasets that require separate access or licensing, including raw PDBbind structural data and MMAtt-DTA supplementary files, are not redistributed here. Please obtain those resources from their official sources and place them in the paths described above.
 
 Large generated files, processed datasets, cached surface features, and checkpoints may be excluded from Git tracking by `.gitignore`. Restore or regenerate them before running the full benchmark workflows.
 

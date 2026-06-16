@@ -306,6 +306,73 @@ If reproduced results are outside these ranges, please check the environment con
 ---
 
 ````markdown
+## MMAtt-DTA Independent External Evaluation
+
+We additionally provide the workflow for reproducing the independent external evaluation on the kinase subset of the supplementary testing data released with MMAtt-DTA. The evaluation contains three scenarios of increasing difficulty:
+
+- **A) Imputation:** seen compounds and seen targets with unseen compound--target pairings;
+- **B) New compound:** unseen compounds paired with seen targets;
+- **C) New compound + new target:** both compounds and targets are unseen.
+
+The original kinase subset contains 215 imputation pairs, 41,378 new-compound pairs, and 607 new-compound-plus-new-target pairs.
+
+### Required external data
+
+The original MMAtt-DTA supplementary testing data are not redistributed in this repository. Users should download the supplementary file from the MMAtt-DTA publication and place it under:
+
+```text
+data/mmatt_dta/
+└── Supplementary_File_1.csv
+````
+
+### Reproduction workflow
+
+The independent evaluation can be reproduced through the following main steps:
+
+```bash
+# 1. Extract the kinase subset and organize the three official scenarios
+python scripts_mmatt/01_prepare_kinase_subset.py
+
+# 2. Retrieve protein sequences using UniProt identifiers
+python scripts_mmatt/02_map_uniprot_sequences.py
+
+# 3. Construct ligand molecular graphs and affinity labels
+python scripts_mmatt/03_build_ligand_graph_dataset.py
+
+# 4. Generate or match ligand and protein surface representations
+python scripts_mmatt/04_build_surface_features.py
+
+# 5. Convert all samples into the SMCL-DTA input format
+python scripts_mmatt/05_build_smcl_external_dataset.py
+
+# 6. Reconstruct protein surface features for uncovered targets
+#    in the new-compound-plus-new-target scenario
+python scripts_mmatt/06_complete_new_target_surfaces.py
+
+# 7. Evaluate the pretrained SMCL-DTA checkpoints over five random seeds
+python scripts_mmatt/07_evaluate_mmatt_5seeds.py
+```
+
+After feature construction and validity checking, all 215 imputation samples and 40,649 new-compound samples were retained. For the new-compound-plus-new-target scenario, protein surface representations were generated for the uncovered targets, enabling evaluation on all 607 samples.
+
+### Expected evaluation output
+
+The evaluation script reports RMSE and Spearman correlation for each scenario as mean ± standard deviation over five independent runs.
+
+```text
+results/mmatt_dta/
+├── mmatt_kinase_imputation_summary.csv
+├── mmatt_kinase_new_compound_summary.csv
+├── mmatt_kinase_new_compound_new_target_summary.csv
+└── mmatt_kinase_5seeds_summary.txt
+```
+
+The MMAtt-DTA reported values used for comparison are taken from the independent kinase-superfamily testing results in the original publication.
+
+```
+```
+
+````markdown
 ## PDBbind/GIGN Benchmark Reproduction
 
 We additionally provide scripts for reproducing the structure-centric PDBbind benchmark based on the official split released with GIGN. This benchmark evaluates SMCL-DTA on the PDBbind 2013 core set and the PDBbind 2016 core set after training on the official GIGN training/validation split.

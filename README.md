@@ -73,6 +73,7 @@ SMCL-DTA/
 | [`docs/MMATT_INDEPENDENT_EVALUATION.md`](docs/MMATT_INDEPENDENT_EVALUATION.md) | Independent MMAtt-DTA kinase evaluation protocol. |
 | [`docs/PDBBIND_GIGN_BENCHMARK.md`](docs/PDBBIND_GIGN_BENCHMARK.md) | PDBbind/GIGN benchmark protocol and reported results. |
 | [`examples/minimal_example.py`](examples/minimal_example.py) | Minimal model-loading example with expected output. |
+| [`environment_versions.txt`](environment_versions.txt) | Reference software and hardware environment used for SMCL-DTA experiments. |
 
 ## Quick Start
 

@@ -1,0 +1,18 @@
+Python executable: /home/lww/anaconda3/envs/bio/bin/python
+Python: 3.10.16 (main, Dec 11 2024, 16:24:50) [GCC 11.2.0]
+Platform: Linux-6.8.0-52-generic-x86_64-with-glibc2.35
+torch: 2.2.1+cu118
+torch-geometric: 2.6.1
+numpy: 1.26.4
+pandas: 1.3.5
+scikit-learn: 1.6.1
+scipy: 1.15.3
+rdkit: 2024.09.5
+biopython: 1.85
+umap-learn: 0.5.7
+networkx: 3.4.2
+matplotlib: 3.10.0
+PyTorch CUDA: 11.8
+cuDNN: 8700
+CUDA available: True
+GPU: NVIDIA GeForce RTX 4090

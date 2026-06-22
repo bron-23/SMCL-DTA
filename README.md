@@ -190,16 +190,50 @@ A run is considered successfully reproduced when the metrics fall within the tol
 | Prediction calibration | **0.1310** | **0.8886** | **0.8035** | Isotonic calibration. |
 | Advanced ensemble | 0.1303 | 0.8883 | 0.8053 | Stacking and multi-stage calibration. |
 
-## KIBA and Davis Split Files
 
-The repository now includes local split files for both KIBA and Davis under `splits/`.
+## Dataset Splits
 
-| Dataset | Standard all | Standard train | Standard test | Cold train | Cold test1 | Cold test2 | Cold test3 | Split README |
-| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | --- |
-| KIBA | 118,254 | 98,545 | 19,709 | 94,157 | 7,431 | 15,451 | 1,215 | [`splits/kiba/README.md`](splits/kiba/README.md) |
-| Davis | 118,254 | 98,545 | 19,709 | 94,157 | 7,431 | 15,451 | 1,215 | [`splits/davis/README.md`](splits/davis/README.md) |
+The exact standard and cold-start data splits used in this study are provided under:
 
-Each dataset contains a `standard/` split for regular train/test evaluation and a `cold_start/` split for held-out cold-start evaluation. The `cold_start/legacy/` folders preserve older split files from the local source directory.
+```text
+splits/
+├── davis/
+│   ├── standard/
+│   │   ├── all.csv
+│   │   ├── train.csv
+│   │   └── test.csv
+│   └── cold_start/
+│       ├── train.csv
+│       ├── test1.csv
+│       ├── test2.csv
+│       └── test3.csv
+└── kiba/
+    ├── standard/
+    │   ├── all.csv
+    │   ├── train.csv
+    │   └── test.csv
+    └── cold_start/
+        ├── train.csv
+        ├── test1.csv
+        ├── test2.csv
+        └── test3.csv
+````
+
+The numbers of drug--target pairs in each released split are summarized below.
+
+| Dataset | Standard all | Standard train | Standard test | Cold train | Drug-scaffold test (`test1`) | Target-cluster test (`test2`) | Pair-level test (`test3`) |
+| ------- | -----------: | -------------: | ------------: | ---------: | ---------------------------: | ----------------------------: | ------------------------: |
+| Davis   |       30,056 |         25,046 |         5,010 |     23,258 |                        2,378 |                         4,010 |                       410 |
+| KIBA    |      118,254 |         98,545 |        19,709 |     94,157 |                        7,431 |                        15,451 |                     1,215 |
+
+For both datasets, the standard training and test sets cover the complete dataset. The cold-start training set and the three cold-start test sets also cover the complete dataset without overlap in the released partition files.
+
+The three cold-start scenarios are defined as follows:
+
+* `test1.csv`: drug scaffold-based cold-start evaluation;
+* `test2.csv`: target protein cluster-based cold-start evaluation;
+* `test3.csv`: pair-level cold-start evaluation involving unseen ligand and target groups.
+
 
 ## Reproducibility Controls
 

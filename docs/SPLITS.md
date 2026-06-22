@@ -26,10 +26,6 @@ splits/<dataset>/
 |   |-- test2.csv
 |   |-- test3.csv
 |   |-- <dataset>_proteins.csv
-|   `-- legacy/
-|       |-- train.csv
-|       |-- test1.csv
-|       `-- test2.csv
 `-- README.md
 ```
 
@@ -41,6 +37,6 @@ compound_iso_smiles,target_sequence,affinity
 
 `cold_start/` contains the cold-start evaluation split files copied from the local dataset split folder. These files preserve the original exported columns and may contain leading index columns.
 
-`cold_start/legacy/` keeps the older cold-start split files to make previous experiments reproducible.
+
 
 

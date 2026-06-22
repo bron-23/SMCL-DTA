@@ -43,22 +43,4 @@ compound_iso_smiles,target_sequence,affinity
 
 `cold_start/legacy/` keeps the older cold-start split files to make previous experiments reproducible.
 
-## Split Sizes
 
-| Dataset | Standard all | Standard train | Standard test | Cold train | Cold test1 | Cold test2 | Cold test3 | Protein rows |
-| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| KIBA | 118,254 | 98,545 | 19,709 | 94,157 | 7,431 | 15,451 | 1,215 | 229 |
-| Davis | 118,254 | 98,545 | 19,709 | 94,157 | 7,431 | 15,451 | 1,215 | 442 |
-
-Legacy cold-start files are also retained:
-
-| Dataset | Legacy train | Legacy test1 | Legacy test2 |
-| --- | ---: | ---: | ---: |
-| KIBA | 97,956 | 19,621 | 677 |
-| Davis | 97,956 | 19,621 | 677 |
-
-## Cold-Start Evaluation Notes
-
-The cold-start files support evaluation settings where part of the compound/target space is held out from training. Use the corresponding `cold_start/train.csv` and `cold_start/test*.csv` files when reproducing cold-start experiments.
-
-For PDBbind/GIGN split details, see `docs/PDBBIND_GIGN_BENCHMARK.md`.

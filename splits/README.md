@@ -26,10 +26,6 @@ splits/<dataset>/
 |   |-- test2.csv
 |   |-- test3.csv
 |   |-- <dataset>_proteins.csv
-|   `-- legacy/
-|       |-- train.csv
-|       |-- test1.csv
-|       `-- test2.csv
 `-- README.md
 ```
 

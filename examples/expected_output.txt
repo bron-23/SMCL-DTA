@@ -1,2 +1,2 @@
 SMCL-DTA model loaded successfully.
-Number of parameters: <model_parameter_count>
+Number of trainable parameters: 3177318

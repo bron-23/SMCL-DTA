@@ -1,24 +1,61 @@
+````markdown
 # Surface Feature Extraction
 
-SMCL-DTA uses surface-aware representations for both ligand molecules and target proteins.
+SMCL-DTA uses precomputed surface representations for both ligand molecules and target proteins. Surface-feature extraction is performed offline, and the generated features are cached for model training and inference.
 
 ## Protein Surface Features
 
-For target proteins, SMCL-DTA follows a MaSIF-style surface preprocessing pipeline. The three-dimensional protein structure is first processed to obtain heavy-atom coordinates. Molecular surface meshes are generated using MSMS, which produces solvent-excluded surface vertices and faces from the input structure.
+Protein surface features are generated using a MaSIF-style preprocessing pipeline. Three-dimensional protein structures are first processed to obtain atomic coordinates. MSMS is then used to generate solvent-excluded molecular surface meshes containing vertices and triangular faces.
 
-The raw molecular surface mesh is then refined using PyMesh-based mesh processing. The raw vertices and faces are converted into a mesh object and regularized using a mesh-fixing procedure to obtain a consistent surface resolution. Surface normal vectors are computed from the refined mesh.
+The raw meshes are refined using PyMesh-based mesh processing to remove irregular elements and obtain a more consistent surface resolution. Surface-normal vectors are subsequently calculated from the refined mesh.
 
-For each surface vertex, geometric and physicochemical descriptors are computed, including:
+For each protein surface point, SMCL-DTA uses geometric and physicochemical descriptors, including:
 
 - spatial coordinates;
-- surface normal vectors;
+- surface-normal vectors;
 - electrostatic properties;
 - hydrogen-bonding-related features;
 - hydrophobicity.
 
-Electrostatic properties are computed using an APBS-based electrostatics module and normalized before being stored. Hydrogen-bonding features are calculated using atom-level charge assignment and mapped from the original molecular surface to the refined mesh. Hydrophobicity values are assigned according to atom or residue identity.
+Electrostatic features are calculated using an APBS-based pipeline, while hydrogen-bonding and hydrophobicity features are assigned from nearby atoms or residues and mapped onto the refined surface mesh.
 
-Each protein is represented as a fixed-size point cloud with 512 sampled surface points. Each point is encoded by a 9-dimensional feature vector:
+Each protein is represented by 512 sampled surface points, with a 9-dimensional feature vector for each point:
 
 ```text
 [x, y, z, nx, ny, nz, charge, hbond, hydrophobicity]
+````
+
+The final protein surface tensor has shape:
+
+```text
+[512, 9]
+```
+
+## Ligand Surface Features
+
+Ligand structures are generated from canonical SMILES strings using RDKit. After three-dimensional conformer generation and geometry optimization, molecular surface points and their associated geometric and physicochemical descriptors are calculated.
+
+Each ligand is represented by 80 sampled surface points, with a 6-dimensional feature vector for each point. The final ligand surface tensor has shape:
+
+```text
+[80, 6]
+```
+
+## Model Usage
+
+The cached ligand and protein surface features are loaded through the dataset pipeline and encoded by separate surface encoders in SMCL-DTA. The resulting surface representations are fused with molecular-graph and protein-sequence features for affinity prediction.
+
+The main related files are:
+
+```text
+preprocessing.py
+src/dataset.py
+src/model_0428_16_dual.py
+scripts/
+scripts_pdbbind/
+```
+
+External tools used in the surface-processing pipeline include MSMS, PyMesh, APBS, and RDKit.
+
+```
+```

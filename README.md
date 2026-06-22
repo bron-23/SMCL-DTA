@@ -221,17 +221,18 @@ splits/
 
 The numbers of drug--target pairs in each released split are summarized below.
 
-| Dataset | Standard all | Standard train | Standard test | Cold train | Drug-scaffold test (`test1`) | Target-cluster test (`test2`) | Pair-level test (`test3`) |
+| Dataset | Standard all | Standard train | Standard test | Cold train | Target-cluster test (`test1`) | Drug-scaffold test (`test2`) | Pair-level test (`test3`) |
 | ------- | -----------: | -------------: | ------------: | ---------: | ---------------------------: | ----------------------------: | ------------------------: |
 | Davis   |       30,056 |         25,046 |         5,010 |     23,258 |                        2,378 |                         4,010 |                       410 |
 | KIBA    |      118,254 |         98,545 |        19,709 |     94,157 |                        7,431 |                        15,451 |                     1,215 |
+
 
 For both datasets, the standard training and test sets cover the complete dataset. The cold-start training set and the three cold-start test sets also cover the complete dataset without overlap in the released partition files.
 
 The three cold-start scenarios are defined as follows:
 
-* `test1.csv`: drug scaffold-based cold-start evaluation;
-* `test2.csv`: target protein cluster-based cold-start evaluation;
+* `test1.csv`: target protein cluster-based cold-start evaluation;
+* `test2.csv`: drug scaffold-based cold-start evaluation;
 * `test3.csv`: pair-level cold-start evaluation involving unseen ligand and target groups.
 
 

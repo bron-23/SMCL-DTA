@@ -18,8 +18,13 @@ SMCL-DTA is a reproducibility package for drug-target affinity (DTA) prediction 
 SMCL-DTA/
 |-- README.md
 |-- examples/
+|   |-- assets/
+|   |   `-- example_batch.pt
+|   |-- create_example_batch.py
+|   |-- create_example_batch_output.txt
+|   |-- expected_output.txt
 |   |-- minimal_example.py
-|   `-- expected_output.txt
+|   `-- minimal_inference.py
 |-- docs/
 |   |-- SURFACE_FEATURES.md
 |   |-- SPLITS.md
@@ -54,6 +59,8 @@ SMCL-DTA/
 |   |-- metrics.py
 |   `-- ...
 |-- checkpoints/
+|   |-- smcl_dta_kiba_example.pt
+|   `-- ...
 |-- paper_standard_reproduction.py
 |-- paper_reproducibility_validation.py
 |-- reproduce_paper_results.py
@@ -73,6 +80,8 @@ SMCL-DTA/
 | [`docs/MMATT_INDEPENDENT_EVALUATION.md`](docs/MMATT_INDEPENDENT_EVALUATION.md) | Independent MMAtt-DTA kinase evaluation protocol. |
 | [`docs/PDBBIND_GIGN_BENCHMARK.md`](docs/PDBBIND_GIGN_BENCHMARK.md) | PDBbind/GIGN benchmark protocol and reported results. |
 | [`examples/minimal_example.py`](examples/minimal_example.py) | Minimal model-loading example with expected output. |
+| [`examples/minimal_inference.py`](examples/minimal_inference.py) | Minimal KIBA checkpoint inference example using the bundled example batch. |
+| [`checkpoints/smcl_dta_kiba_example.pt`](checkpoints/smcl_dta_kiba_example.pt) | Minimal checkpoint used by the worked inference example. |
 | [`environment_versions.txt`](environment_versions.txt) | Reference software and hardware environment used for SMCL-DTA experiments. |
 
 ## Quick Start
@@ -98,24 +107,31 @@ pip install scikit-learn numpy pandas rdkit-pypi
 ```
 
 ### 3. Run the Minimal Example
+
+Run on CPU:
+
 ```bash
-Run on CPU
 python examples/minimal_inference.py \
   --checkpoint checkpoints/smcl_dta_kiba_example.pt \
   --input examples/assets/example_batch.pt \
   --device cpu
-Run on GPU
+```
+
+Run on GPU:
+
+```bash
 python examples/minimal_inference.py \
   --checkpoint checkpoints/smcl_dta_kiba_example.pt \
   --input examples/assets/example_batch.pt \
   --device cuda
 ```
 
-Expected output
+Expected output:
+
+```text
 ====================================================================
 SMCL-DTA minimal worked inference example
 ====================================================================
-```bash
 Model implementation: src/model_0428_16_dual.py
 Device: cuda
 Number of drug-target pairs: 2

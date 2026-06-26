@@ -1,0 +1,37 @@
+Loading surface-enabled KIBA test data...
+Dataset root: /home/lww/learn_project/MGraphDTA-dev/regression/data/kiba
+
+Complete test-set size: 19709
+
+Sample 0
+Data(x=[27, 22], edge_index=[2, 60], edge_attr=[60, 6], y=[1], target=[1, 1200], protein_id='P36888', ligand_surface=[80, 6], ligand_global=[264], protein_surface=[512, 9])
+Keys: ['edge_index', 'ligand_global', 'target', 'protein_id', 'edge_attr', 'ligand_surface', 'x', 'y', 'protein_surface']
+  edge_index: type=Tensor, shape=torch.Size([2, 60]), dtype=torch.int64
+  ligand_global: type=Tensor, shape=torch.Size([264]), dtype=torch.float32
+  target: type=Tensor, shape=torch.Size([1, 1200]), dtype=torch.int64
+  protein_id: type=str, shape=None, dtype=None
+  edge_attr: type=Tensor, shape=torch.Size([60, 6]), dtype=torch.float32
+  ligand_surface: type=Tensor, shape=torch.Size([80, 6]), dtype=torch.float32
+  x: type=Tensor, shape=torch.Size([27, 22]), dtype=torch.float32
+  y: type=Tensor, shape=torch.Size([1]), dtype=torch.float32
+  protein_surface: type=Tensor, shape=torch.Size([512, 9]), dtype=torch.float32
+
+Sample 1
+Data(x=[29, 22], edge_index=[2, 66], edge_attr=[66, 6], y=[1], target=[1, 1200], protein_id='P49760', ligand_surface=[80, 6], ligand_global=[264], protein_surface=[512, 9])
+Keys: ['edge_index', 'ligand_global', 'target', 'protein_id', 'edge_attr', 'ligand_surface', 'x', 'y', 'protein_surface']
+  edge_index: type=Tensor, shape=torch.Size([2, 66]), dtype=torch.int64
+  ligand_global: type=Tensor, shape=torch.Size([264]), dtype=torch.float32
+  target: type=Tensor, shape=torch.Size([1, 1200]), dtype=torch.int64
+  protein_id: type=str, shape=None, dtype=None
+  edge_attr: type=Tensor, shape=torch.Size([66, 6]), dtype=torch.float32
+  ligand_surface: type=Tensor, shape=torch.Size([80, 6]), dtype=torch.float32
+  x: type=Tensor, shape=torch.Size([29, 22]), dtype=torch.float32
+  y: type=Tensor, shape=torch.Size([1]), dtype=torch.float32
+  protein_surface: type=Tensor, shape=torch.Size([512, 9]), dtype=torch.float32
+
+============================================================
+Example batch created successfully
+============================================================
+Number of samples: 2
+Output file: examples/assets/example_batch.pt
+File size: 0.07 MB

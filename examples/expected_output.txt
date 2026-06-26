@@ -1,2 +1,12 @@
-SMCL-DTA model loaded successfully.
-Number of trainable parameters: 3177318
+====================================================================
+SMCL-DTA minimal worked inference example
+====================================================================
+Model implementation: src/model_0428_16_dual.py
+Device: cuda
+Number of drug-target pairs: 2
+Checkpoint: checkpoints/smcl_dta_kiba_example.pt
+Checkpoint loaded successfully.
+Prediction shape: (2,)
+Predicted affinities: [13.311551, 12.394914]
+Reference affinities: [14.400163, 12.399998]
+Minimal inference completed successfully.

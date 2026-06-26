@@ -98,7 +98,7 @@ pip install scikit-learn numpy pandas rdkit-pypi
 ```
 
 ### 3. Run the Minimal Example
-
+```bash
 Run on CPU
 python examples/minimal_inference.py \
   --checkpoint checkpoints/smcl_dta_kiba_example.pt \
@@ -109,10 +109,13 @@ python examples/minimal_inference.py \
   --checkpoint checkpoints/smcl_dta_kiba_example.pt \
   --input examples/assets/example_batch.pt \
   --device cuda
+```
+
 Expected output
 ====================================================================
 SMCL-DTA minimal worked inference example
 ====================================================================
+```bash
 Model implementation: src/model_0428_16_dual.py
 Device: cuda
 Number of drug-target pairs: 2
@@ -122,6 +125,7 @@ Prediction shape: (2,)
 Predicted affinities: [13.311551, 12.394914]
 Reference affinities: [14.400163, 12.399998]
 Minimal inference completed successfully.
+```
 
 ## Core Reproduction Files
 
